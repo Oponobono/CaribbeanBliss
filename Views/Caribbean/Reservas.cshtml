@@ -1,0 +1,88 @@
+﻿@model Caribbean2.Models.Reserva
+@{
+    ViewData["Title"] = "Crear Reserva";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h2 class="text-center mt-4">Crear Nueva Reserva</h2>
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <form asp-action="Create" method="post">
+                @Html.AntiForgeryToken()
+                <div class="form-group">
+                    <label asp-for="IdCliente" class="control-label">Cliente</label>
+                    <select asp-for="IdCliente" class="form-control" asp-items="ViewBag.IdCliente"></select>
+                    <span asp-validation-for="IdCliente" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Huéspedes</label>
+                    <select asp-for="Huespedes" class="form-control" asp-items="ViewBag.Huespedes" multiple="multiple"></select>
+                    <span asp-validation-for="Huespedes" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdHabitacion" class="control-label">Habitación</label>
+                    <select asp-for="IdHabitacion" class="form-control" asp-items="ViewBag.IdHabitacion"></select>
+                    <span asp-validation-for="IdHabitacion" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaInicio" class="control-label">Fecha de Inicio</label>
+                    <input asp-for="FechaInicio" class="form-control" />
+                    <span asp-validation-for="FechaInicio" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="FechaFin" class="control-label">Fecha de Fin</label>
+                    <input asp-for="FechaFin" class="form-control" />
+                    <span asp-validation-for="FechaFin" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="NumeroPersonas" class="control-label">Número de Personas</label>
+                    <input asp-for="NumeroPersonas" class="form-control" />
+                    <span asp-validation-for="NumeroPersonas" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="PrecioTotal" class="control-label">Precio Total</label>
+                    <input asp-for="PrecioTotal" class="form-control" />
+                    <span asp-validation-for="PrecioTotal" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Anticipo" class="control-label">Anticipo</label>
+                    <input asp-for="Anticipo" class="form-control" />
+                    <span asp-validation-for="Anticipo" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="IdEstado" class="control-label">Estado</label>
+                    <select asp-for="IdEstado" class="form-control" asp-items="ViewBag.IdEstado"></select>
+                    <span asp-validation-for="IdEstado" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Notas" class="control-label">Notas</label>
+                    <textarea asp-for="Notas" class="form-control"></textarea>
+                    <span asp-validation-for="Notas" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label class="control-label">Servicios</label>
+                    <div>
+                        @foreach (var servicio in ViewBag.ServiciosActivos)
+                        {
+                            <div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="ServiciosSeleccionados" value="@servicio.IdServicio" id="servicio_@servicio.IdServicio">
+                                <label class="form-check-label" for="servicio_@servicio.IdServicio">
+                                    @servicio.Nombre
+                                </label>
+                            </div>
+                        }
+                    </div>
+                </div>
+                <div class="form-group mt-3">
+                    <button type="submit" class="btn btn-primary">Guardar</button>
+                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
